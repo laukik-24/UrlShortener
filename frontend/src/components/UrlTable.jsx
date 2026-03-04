@@ -32,7 +32,7 @@ export default function UrlTable({ urls, refreshUrls }) {
               rel="noopener noreferrer"
               className="text-blue-600"
             >
-              {`${BASE_URL}/${url.short_code}`}
+              {`${url.short_code}`}
             </a>
 
             <p className="text-sm text-gray-500">
