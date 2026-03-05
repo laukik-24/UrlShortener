@@ -1,12 +1,10 @@
 import toast from "react-hot-toast";
 import API from "../api/axios";
 
-const BASE_URL = import.meta.env.VITE_API_URL;
-
 export default function UrlTable({ urls, refreshUrls }) {
 
-  const copy = (code) => {
-    navigator.clipboard.writeText(`${BASE_URL}/${code}`);
+  const copy = (short_url) => {
+    navigator.clipboard.writeText(short_url);
     toast.success("Copied!");
   };
 
@@ -19,20 +17,22 @@ export default function UrlTable({ urls, refreshUrls }) {
   return (
     <div className="space-y-4">
       {urls.map((url) => (
+
         <div
           key={url._id}
           className="p-4 shadow rounded flex justify-between items-center"
         >
+
           <div>
             <p className="font-semibold">{url.original_url}</p>
 
             <a
-              href={`${BASE_URL}/${url.short_code}`}
+              href={url.short_url}
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600"
             >
-              {`${url.short_code}`}
+              {url.short_code}
             </a>
 
             <p className="text-sm text-gray-500">
@@ -45,8 +45,9 @@ export default function UrlTable({ urls, refreshUrls }) {
           </div>
 
           <div className="flex gap-2">
+
             <button
-              onClick={() => copy(url.short_code)}
+              onClick={() => copy(url.short_url)}
               className="bg-green-500 text-white px-3 py-1 rounded"
             >
               Copy
@@ -58,7 +59,9 @@ export default function UrlTable({ urls, refreshUrls }) {
             >
               Delete
             </button>
+
           </div>
+
         </div>
       ))}
     </div>

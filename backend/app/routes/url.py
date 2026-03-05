@@ -27,7 +27,12 @@ async def my_urls(
     urls = []
 
     for url in cursor:
+
         url["_id"] = str(url["_id"])
+
+        # Add full short URL
+        url["short_url"] = f"{BASE_URL}/{url['short_code']}"
+
         urls.append(url)
 
     return urls
@@ -60,7 +65,8 @@ async def shorten_url(
     )
 
     return {
-        "short_url": f"{BASE_URL}/{short_code}"
+        "short_url": f"{BASE_URL}/{short_code}",
+        "short_code": short_code
     }
 
 @router.get("/{short_code}")

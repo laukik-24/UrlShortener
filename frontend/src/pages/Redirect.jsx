@@ -1,25 +1,17 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import API from "../api/axios";
 
 export default function Redirect() {
+
   const { code } = useParams();
 
   useEffect(() => {
-    const fetchUrl = async () => {
-      try {
-        const res = await API.get(`/url/redirect/${code}`);
-        window.location.href = res.data.original_url;
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchUrl();
+    window.location.href =
+      `https://shortify-s6hd.onrender.com/${code}`;
   }, [code]);
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex justify-center items-center h-screen">
       Redirecting...
     </div>
   );
