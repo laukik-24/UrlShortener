@@ -1,54 +1,40 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
-  const { token, logout } = useAuth();
-  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
+  const { logout, token } = useAuth();
+  const location = useLocation();
+
+  const isAuthPage =
+    location.pathname === "/" ||
+    location.pathname === "/login" ||
+    location.pathname === "/signup";
 
   return (
-    <nav className="bg-white shadow-md px-6 py-4">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
-        {/* Logo */}
-        <Link to="/dashboard" className="text-2xl font-bold text-blue-600">
-          🔗 Shortify
-        </Link>
+    <nav className="flex justify-between items-center p-4 shadow">
 
-        {/* Right Section */}
-        <div className="flex items-center gap-4">
-          {token ? (
-            <>
-              <Link
-                to="/dashboard"
-                className="text-gray-700 hover:text-blue-600 font-medium">
-                Dashboard
-              </Link>
+      <Link to="/" className="text-xl font-bold text-blue-600">
+        🔗 Shortify
+      </Link>
 
-              <button
-                onClick={handleLogout}
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/" className="text-gray-700 hover:text-blue-600">
-                Login
-              </Link>
+      {!isAuthPage && token && (
+        <div className="flex gap-4 items-center">
 
-              <Link
-                to="/signup"
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                Signup
-              </Link>
-            </>
-          )}
+          <Link to="/dashboard">
+            Dashboard
+          </Link>
+
+          <button
+            onClick={logout}
+            className="bg-red-500 text-white px-3 py-1 rounded"
+          >
+            Logout
+          </button>
+
         </div>
-      </div>
+      )}
+
     </nav>
   );
 }
