@@ -17,13 +17,6 @@ export default function Navbar() {
         {!token && (
           <>
             <Link
-              to="/login"
-              className="text-blue-600 font-medium"
-            >
-              Login
-            </Link>
-
-            <Link
               to="/signup"
               className="bg-blue-600 text-white px-3 py-1 rounded"
             >
