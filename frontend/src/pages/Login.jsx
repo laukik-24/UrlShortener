@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import API from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login } = useAuth();
+  const { login, token } = useAuth();
   const navigate = useNavigate();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [token, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,6 +30,7 @@ export default function Login() {
       login(res.data.access_token);
 
       navigate("/dashboard");
+
     } catch {
       alert("Invalid credentials");
     }
@@ -29,9 +38,12 @@ export default function Login() {
 
   return (
     <div className="h-screen flex justify-center items-center">
+
       <form
         onSubmit={handleLogin}
-        className="p-6 shadow-lg rounded w-80 space-y-4">
+        className="p-6 shadow-lg rounded w-80 space-y-4"
+      >
+
         <h2 className="text-xl font-bold">Login</h2>
 
         <input
@@ -47,8 +59,12 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button className="bg-green-500 text-white w-full p-2">Login</button>
+        <button className="bg-green-500 text-white w-full p-2">
+          Login
+        </button>
+
       </form>
+
     </div>
   );
 }
