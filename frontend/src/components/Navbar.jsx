@@ -1,15 +1,9 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
 
   const { logout, token } = useAuth();
-  const location = useLocation();
-
-  const isAuthPage =
-    location.pathname === "/" ||
-    location.pathname === "/login" ||
-    location.pathname === "/signup";
 
   return (
     <nav className="flex justify-between items-center p-4 shadow">
@@ -18,22 +12,45 @@ export default function Navbar() {
         🔗 Shortify
       </Link>
 
-      {!isAuthPage && token && (
-        <div className="flex gap-4 items-center">
+      <div className="flex gap-4 items-center">
 
-          <Link to="/dashboard">
-            Dashboard
-          </Link>
+        {!token && (
+          <>
+            <Link
+              to="/login"
+              className="text-blue-600 font-medium"
+            >
+              Login
+            </Link>
 
-          <button
-            onClick={logout}
-            className="bg-red-500 text-white px-3 py-1 rounded"
-          >
-            Logout
-          </button>
+            <Link
+              to="/signup"
+              className="bg-blue-600 text-white px-3 py-1 rounded"
+            >
+              Signup
+            </Link>
+          </>
+        )}
 
-        </div>
-      )}
+        {token && (
+          <>
+            <Link
+              to="/dashboard"
+              className="font-medium"
+            >
+              Dashboard
+            </Link>
+
+            <button
+              onClick={logout}
+              className="bg-red-500 text-white px-3 py-1 rounded"
+            >
+              Logout
+            </button>
+          </>
+        )}
+
+      </div>
 
     </nav>
   );
