@@ -100,3 +100,13 @@ async def delete_user_url(
 
     return {"message": "URL deleted"}
 
+@router.get("/redirect/{code}")
+async def redirect_url(code: str):
+    url = await get_url_by_code(code)
+
+    if not url:
+        raise HTTPException(status_code=404, detail="URL not found")
+
+    await increment_clicks(code)
+
+    return {"original_url": url["original_url"]}
