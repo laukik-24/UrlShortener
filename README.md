@@ -67,7 +67,7 @@ MongoDB Atlas
 git clone https://github.com/yourusername/clipnex.git
 cd clipnex
 ```
-## 1️⃣ Backend Setup
+## 2️⃣ Backend Setup
 ```bash
 cd backend
 python -m venv venv
@@ -95,7 +95,7 @@ Backend runs on:
 ```bash
 http://localhost:8000
 ```
-## 1️⃣ Frontend Setup
+## 3️⃣ Frontend Setup
 ```bash
 cd frontend
 npm install
