@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { Mail, Lock } from "lucide-react";
 import API from "../api/axios";
@@ -9,8 +9,15 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login } = useAuth();
+  const { login, token } = useAuth();
   const navigate = useNavigate();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [token, navigate]);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -44,9 +51,7 @@ export default function Signup() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-950 to-black px-4">
-      {/* Card */}
       <div className="bg-slate-900/60 backdrop-blur-lg border border-slate-700 p-8 rounded-xl shadow-2xl w-full max-w-sm space-y-6">
-        {/* Title */}
         <div className="text-center">
           <h2 className="text-2xl font-bold text-indigo-400">Create Account</h2>
           <p className="text-slate-400 text-sm mt-1">
@@ -54,9 +59,7 @@ export default function Signup() {
           </p>
         </div>
 
-        {/* Email Signup */}
         <form onSubmit={handleSignup} className="space-y-4">
-          {/* Email */}
           <div className="relative">
             <Mail className="absolute left-3 top-3 text-slate-400" size={18} />
             <input
@@ -68,7 +71,6 @@ export default function Signup() {
             />
           </div>
 
-          {/* Password */}
           <div className="relative">
             <Lock className="absolute left-3 top-3 text-slate-400" size={18} />
             <input
@@ -80,20 +82,17 @@ export default function Signup() {
             />
           </div>
 
-          {/* Signup Button */}
           <button className="w-full bg-indigo-500 hover:bg-indigo-600 transition-all duration-200 py-2 rounded-md font-medium text-white hover:scale-[1.02]">
             Signup
           </button>
         </form>
 
-        {/* Divider */}
         <div className="flex items-center gap-3 text-slate-500 text-sm">
           <div className="flex-1 h-px bg-slate-700"></div>
           OR
           <div className="flex-1 h-px bg-slate-700"></div>
         </div>
 
-        {/* Google Signup */}
         <div className="flex justify-center">
           <GoogleLogin
             onSuccess={handleGoogleSignup}
@@ -101,7 +100,6 @@ export default function Signup() {
           />
         </div>
 
-        {/* Login Link */}
         <p className="text-center text-sm text-slate-400">
           Already have an account?{" "}
           <Link to="/" className="text-indigo-400 hover:underline">
