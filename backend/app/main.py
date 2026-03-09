@@ -7,6 +7,7 @@ from app.routes.url import router as url_router
 from fastapi.responses import RedirectResponse
 from app.models.url import get_url_by_code, increment_click
 from fastapi.middleware.cors import CORSMiddleware
+from app.routes import google_auth
 import os
 
 
@@ -28,6 +29,12 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(url_router)
+
+app.include_router(
+    google_auth.router,
+    prefix="/auth",
+    tags=["Google Auth"]
+)
 
 
 @app.get("/")
@@ -55,3 +62,4 @@ async def redirect(short_code: str):
     await increment_click(short_code)
 
     return RedirectResponse(url["original_url"])
+

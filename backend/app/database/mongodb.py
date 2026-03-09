@@ -7,4 +7,4 @@ database = client[DATABASE_NAME]
 
 
 def get_database():
-    return databases
+    return database

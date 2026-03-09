@@ -1,5 +1,28 @@
 @import "tailwindcss";
 body {
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  color: #e2e8f0;
+  font-family: Inter, sans-serif;
   margin: 0;
   padding: 0;
+}
+
+/* glass card */
+.glass {
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* animated button */
+.btn-primary {
+  @apply bg-indigo-500 hover:bg-indigo-600 transition-all duration-200;
+}
+
+.btn-animate {
+  transition: transform 0.2s ease;
+}
+
+.btn-animate:hover {
+  transform: scale(1.05);
 }
