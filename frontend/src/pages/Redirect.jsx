@@ -1,26 +1,16 @@
-import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import API from "../api/axios";
+import { useParams } from "react-router-dom";
 
 export default function Redirect() {
-  const { shortCode } = useParams();
+  const { code } = useParams();
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    const redirect = async () => {
-      try {
-        const res = await API.get(`/${shortCode}`);
-
-        window.location.href = res.data.original_url;
-      } catch {
-        alert("Invalid or expired link");
-      }
-    };
-
-    redirect();
-  }, [shortCode]);
+    window.location.href = `${BASE_URL}/${code}`;
+  }, [code, BASE_URL]);
 
   return (
-    <div className="flex items-center justify-center h-screen text-white">
+    <div className="flex justify-center items-center h-screen text-white">
       Redirecting...
     </div>
   );
