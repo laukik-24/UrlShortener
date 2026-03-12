@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from app.core.config import APP_NAME
-from app.routes.auth import router as auth_router
 from app.utils.dependencies import get_current_user
 from fastapi import Depends
 from app.routes.url import router as url_router
@@ -27,7 +26,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth_router)
 app.include_router(url_router)
 
 app.include_router(

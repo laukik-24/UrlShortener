@@ -1,19 +1,17 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
+import Redirect from "./pages/Redirect";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
-import Redirect from "./pages/Redirect";
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+
         <Route
           path="/dashboard"
           element={
@@ -22,9 +20,10 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route path="/:code" element={<Redirect />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 
